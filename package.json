@@ -1,0 +1,18 @@
+{
+  "name": "picture-of-the-day-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Irish Bigonia",
+  "license": "ISC",
+  "description": "Created an app that generates a picture of the day with a random greeting when a button is pressed.",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}
