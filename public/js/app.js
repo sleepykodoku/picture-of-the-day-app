@@ -4,8 +4,8 @@ function fetchRandomDog() {
     const dogContainer = document.getElementById('dogContainer');
     dogContainer.innerHTML = '<p>Loading...</p>';
     
-    // Using The Dog API
-    fetch('https://api.thedogapi.com/v1/images/search')
+    // Using our backend route
+    fetch('/dogs/random')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -13,7 +13,7 @@ function fetchRandomDog() {
             return response.json();
         })
         .then(data => {
-            if (data && data[0] && data[0].url) {
+            if (data && data.url) {
                 const greetings = [
                     "Awesome dog!",
                     "What a cute pup!",
@@ -25,7 +25,7 @@ function fetchRandomDog() {
                 
                 dogContainer.innerHTML = `
                     <h2>${randomGreeting}</h2>
-                    <img src="${data[0].url}" alt="Random dog">
+                    <img src="${data.url}" alt="Random dog">
                 `;
             } else {
                 throw new Error('No dog image found');
