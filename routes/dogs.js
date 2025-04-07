@@ -1,22 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
 
-router.get('/random', async (req, res) => {
-    try {
-        const response = await axios.get('https://api.thedogapi.com/v1/images/search', {
-            headers: {
-                'x-api-key': process.env.DOG_API_KEY
-            }
-        });
-        res.json(response.data[0]);
-    } catch (error) {
+router.get('/random', (req, res) => {
+    fetch('https://api.thedogapi.com/v1/images/search', {
+        headers: {
+            'x-api-key': process.env.DOG_API_KEY
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Dog API responded with status ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        res.json(data[0]);
+    })
+    .catch(error => {
         console.error('Error fetching dog:', error);
-        res.status(500).json({ 
+        res.status(500).json({
             error: 'Failed to fetch dog image',
-            details: error.message 
+            details: error.message
         });
-    }
+    });
 });
 
 module.exports = router;
